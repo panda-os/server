@@ -2139,6 +2139,7 @@
         <column name="updated_at" type="timestamp" />
         <column name="status" type="integer" />
         <column name="server_type" type="integer" required="true" />
+        <column primaryKey="false" required="false" autoIncrement="false" lazyLoad="false" name="dc" type="integer" />
         <column name="custom_data" type="longvarchar" />
         <index name="entry_server_type">
             <index-column name="entry_id" />

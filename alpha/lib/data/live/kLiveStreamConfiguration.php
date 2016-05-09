@@ -40,6 +40,11 @@ class kLiveStreamConfiguration
 	protected $isExternalStream = false;
 	
 	/**
+	 * @var LiveEntryServerNode
+	 */
+	protected $liveEntryServerNode = false;
+	
+	/**
 	 * @return the $streamName
 	 */
 	public function getStreamName() {
@@ -117,5 +122,13 @@ class kLiveStreamConfiguration
 	
 	public function getIsExternalStream() {
 		return $this->isExternalStream;
+	}
+	
+	public function setLiveEntryServerNode($v) {
+		$this->liveEntryServerNode = $v;
+	}
+	
+	public function getLiveEntryServerNode() {
+		return $this->liveEntryServerNode;
 	}
 }

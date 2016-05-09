@@ -118,6 +118,39 @@ class DeliveryProfileLiveAppleHttp extends DeliveryProfileLive {
 	 * Fetch the manifest and build all flavors array
 	 * @param string $url
 	 */
+	private function buildM3u8Flavors($url, array &$flavors, $dc)
+	{
+		$entryServerNodes = EntryServerNodePeer::retrieveByEntryId($this->params->getEntryId());
+		
+		foreach ($entryServerNodes as $entryServerNode)
+		{
+			/* @var $entryServerNode LiveEntryServerNode */
+			$streams = $entryServerNode->getStreams();
+			foreach ($streams as $stream)
+			{
+				/* @var $stream kLiveStreamParams */
+				$flavor = array(
+						'url' => '',
+						'urlPrefix' => str_replace("playlist.m3u8", $stream->getFlavorId() . "/chunklist.m3u8", $url),
+						'domainPrefix' => $domainPrefix,
+						'ext' => 'm3u8',
+				);
+				
+				$flavor['bitrate'] = $stream->getBitrate();
+				$flavor['width'] = $stream->getWidth();
+				$flavor['height'] = $stream->getHeight();
+				
+				$flavors[] = $flavor;
+			}
+		}
+		
+		KalturaLog::debug("Testing:: flavors" . print_r($flavors, true));
+	}
+	
+	/**
+	 * Fetch the manifest and build all flavors array
+	 * @param string $url
+	 */
 	private function buildM3u8Flavors($url, array &$flavors)
 	{
 		if($this->getDisableExtraAttributes())
@@ -223,9 +256,9 @@ class DeliveryProfileLiveAppleHttp extends DeliveryProfileLive {
 		}
 				
 		$flavors = array();
-		$this->buildM3u8Flavors($baseUrl, $flavors);
+		$this->buildM3u8Flavors($baseUrl, $flavors, kDataCenterMgr::getCurrentDcId());
 		if($backupUrl)
-			$this->buildM3u8Flavors($backupUrl, $flavors);
+			$this->buildM3u8Flavors($backupUrl, $flavors, abs(kDataCenterMgr::getCurrentDcId()-1));
 		
 		foreach ($flavors as $index => $flavor)
 		{
