@@ -703,7 +703,7 @@ class kMetadataManager
 	}
 	
 	/**
-	 * Receives metadata object ID and a previous version, and returns an array mapping the xpaths of fields changed from version $previousVersion 
+	 * Receives metadata object ID and a previous version, and returns an array mapping the field names to their new values 
 	 * to their new values in the current version
 	 * 
 	 * @param int $metadataObjectId
