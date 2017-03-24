@@ -46,7 +46,10 @@ class DeliveryProfileGenericAppleHttp extends DeliveryProfileAppleHttp {
 		$pattern = $this->getPattern();
 		if(is_null($pattern))
 			$pattern = '/hls-vod/{url}.m3u8';
-		return kDeliveryUtils::formatGenericUrl($url, $pattern, $this->params);
+
+		$pattern = str_replace('{partnerId}', $fileSync->getPartnerId(), $pattern);
+
+        return kDeliveryUtils::formatGenericUrl($url, $pattern, $this->params);
 	}
 	
 	public function buildServeFlavors()

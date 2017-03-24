@@ -23,6 +23,9 @@ class DeliveryProfileGenericHttp extends DeliveryProfileHttp {
 		$pattern = $this->getPattern();
 		if(is_null($pattern))
 			$pattern = '{url}';
+
+        $pattern = str_replace('{partnerId}', $fileSync->getPartnerId(), $pattern);
+
 		return kDeliveryUtils::formatGenericUrl($url, $pattern, $this->params);
 	}
 

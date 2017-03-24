@@ -2347,10 +2347,6 @@ CREATE TABLE  IF NOT EXISTS business_process_server
 	description VARCHAR(255),
 	status TINYINT,
 	type INTEGER,
-	custom_data TEXT,
-	dc INTEGER,
-	PRIMARY KEY (id)
-)ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `kuser_kgroup`
 (
@@ -2367,13 +2363,7 @@ CREATE TABLE `kuser_kgroup`
 	PRIMARY KEY (`id`),
 	KEY `partner_kuser_index`(`kuser_id`, `status`),
 	KEY `partner_kgroup_index`(`kgroup_id`, `status`),
-	KEY `partner_index`(`partner_id`, `status`),
-	CONSTRAINT `kuser_kgroup_FK_1`
-	FOREIGN KEY (`kgroup_id`)
-	REFERENCES `kuser` (`id`),
-	CONSTRAINT `kuser_kgroup_FK_2`
-	FOREIGN KEY (`kuser_id`)
-	REFERENCES `kuser` (`id`)
+	KEY `partner_index`(`partner_id`, `status`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
